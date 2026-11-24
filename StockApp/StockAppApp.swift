@@ -2,7 +2,8 @@
 //  StockAppApp.swift
 //  StockApp
 //
-//  Created by Raihan Aji Kinarya on 14/09/26.
+//  Entry point aplikasi. Ini file "paling atas" -> sederhana,
+//  cuma menunjuk ke View utama.
 //
 
 import SwiftUI
@@ -11,7 +12,7 @@ import SwiftUI
 struct StockAppApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            StockListView()
         }
     }
 }
