@@ -16,6 +16,7 @@ final class StockListViewModel: ObservableObject {
     @Published var stocks: [Stock] = []
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
+    @Published var searchText: String = ""
 
     // 2. Dependency (bisa di-inject untuk testing / mock)
     private let apiService: StockAPIServiceProtocol
@@ -67,5 +68,14 @@ final class StockListViewModel: ObservableObject {
     // 5. Fungsi logika tambahan: sorting berdasarkan performa
     func sortedByPerformance() -> [Stock] {
         return stocks.sorted { $0.changePercent > $1.changePercent }
+    }
+    
+    var filteredStocks: [Stock] {
+        if searchText.isEmpty {
+            return stocks
+        }
+        return stocks.filter {
+            $0.symbol.localizedCaseInsensitiveContains(searchText)
+        }
     }
 }

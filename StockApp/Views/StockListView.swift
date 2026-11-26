@@ -41,7 +41,7 @@ struct StockListView: View {
                         .foregroundColor(.red)
                 }
 
-                ForEach(viewModel.stocks) { stock in
+                ForEach(viewModel.filteredStocks) { stock in
                     NavigationLink(destination: StockDetailView(stock: stock)) {
                         StockRowView(stock: stock)
                     }
@@ -50,6 +50,7 @@ struct StockListView: View {
             .refreshable {
                 await viewModel.loadStocks(symbols: watchedSymbols)
             }
+            .searchable(text: $viewModel.searchText)
         }
     }
 }
