@@ -6,12 +6,7 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		2B791413306BCB4400BF3BC3 /* Materi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B791412306BCB3E00BF3BC3 /* Materi.swift */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		2B791412306BCB3E00BF3BC3 /* Materi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Materi.swift; sourceTree = "<group>"; };
 		2BB7A2B03057A92A0013A7A7 /* StockApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -51,7 +46,6 @@
 		2BB7A2A73057A92A0013A7A7 = {
 			isa = PBXGroup;
 			children = (
-				2B791412306BCB3E00BF3BC3 /* Materi.swift */,
 				2BB7A2B13057A92A0013A7A7 /* Products */,
 				2BB7A2B23057A92A0013A7A7 /* StockApp */,
 			);
@@ -139,7 +133,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B791413306BCB4400BF3BC3 /* Materi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
