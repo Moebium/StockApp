@@ -17,12 +17,20 @@ final class StockListViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
     @Published var searchText: String = ""
+    @Published var favoriteSymbols: [String] = [] {
+        didSet {
+            UserDefaults.standard.set(favoriteSymbols, forKey:
+            "favoriteSymbols")
+        }
+    }
 
     // 2. Dependency (bisa di-inject untuk testing / mock)
     private let apiService: StockAPIServiceProtocol
 
     init(apiService: StockAPIServiceProtocol? = nil) {
         self.apiService = apiService ?? StockAPIService()
+        favoriteSymbols = UserDefaults.standard.stringArray(forKey:
+        "favoriteSymbols") ?? []
     }
 
     // 3. Fungsi utama: memuat data saham
@@ -76,6 +84,14 @@ final class StockListViewModel: ObservableObject {
         }
         return stocks.filter {
             $0.symbol.localizedCaseInsensitiveContains(searchText)
+        }
+    }
+    
+    func toggleFavorite(_ symbol: String) {
+        if favoriteSymbols.contains(symbol) {
+            favoriteSymbols.removeAll { $0 == symbol }
+        } else {
+            favoriteSymbols.append(symbol)
         }
     }
 }

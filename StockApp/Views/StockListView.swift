@@ -43,7 +43,15 @@ struct StockListView: View {
 
                 ForEach(viewModel.filteredStocks) { stock in
                     NavigationLink(destination: StockDetailView(stock: stock)) {
-                        StockRowView(stock: stock)
+                        StockRowView(stock: stock, isFavorite:
+                                        viewModel.favoriteSymbols.contains(stock.symbol))
+                    }
+                    .swipeActions {
+                        Button {
+                            viewModel.toggleFavorite(stock.symbol)
+                        } label: {
+                            Label("Favorite", systemImage: "star")
+                        }
                     }
                 }
             }
@@ -58,12 +66,19 @@ struct StockListView: View {
 // 3. Sub-view terpisah untuk satu baris -> reusable & gampang di-test
 struct StockRowView: View {
     let stock: Stock
+    var isFavorite: Bool = false
 
     var body: some View {
         HStack {
             VStack(alignment: .leading) {
-                Text(stock.symbol)
-                    .font(.headline)
+                HStack {
+                    Text(stock.symbol)
+                        .font(.headline)
+                    if isFavorite {
+                        Image(systemName: "star.fill")
+                            .foregroundColor(.yellow)
+                    }
+                }
                 Text(stock.companyName)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
