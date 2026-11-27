@@ -47,7 +47,7 @@ final class StockListViewModel: ObservableObject {
                 return
             }
 
-            stocks = fetchedStocks
+            stocks = fetchedStocks.sorted { $0.symbol < $1.symbol}
 
         } catch {
             // Cek apakah error yang dibungkus APIError ini sebenarnya cancellation
