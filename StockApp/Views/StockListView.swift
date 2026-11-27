@@ -59,6 +59,11 @@ struct StockListView: View {
                 await viewModel.loadStocks(symbols: watchedSymbols)
             }
             .searchable(text: $viewModel.searchText)
+            .overlay {
+                if viewModel.filteredStocks.isEmpty && !viewModel.searchText.isEmpty {
+                    ContentUnavailableView.search(text: viewModel.searchText)
+                }
+            }
         }
     }
 }
