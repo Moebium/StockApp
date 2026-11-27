@@ -25,16 +25,19 @@ A SwiftUI iOS app that shows a stock watchlist with prices from the [Finnhub](ht
 - async/await
 - Finnhub REST API
 - Codable models
+- XCTest unit tests, with a mock API service injected into the view model
 
 ## Project structure
 
 ```
-StockApp/
+StockApp/                  App source
 ├── Models/        Stock model (computed percent change, formatting)
 ├── Networking/    StockAPIService, talks to the Finnhub API
 ├── ViewModels/    StockListViewModel, holds loading, error, and list state
 ├── Views/         StockListView, StockDetailView
 └── Utilities/     Number formatting helpers
+
+StockAppTests/             Unit tests (changePercent, search) using a mock API service
 ```
 
 ## Getting started
@@ -59,5 +62,5 @@ StockApp/
 - [ ] Keep a stable order of stocks after a refresh
 - [x] Search by symbol
 - [x] Save favorites on the device
-- [ ] Unit tests
+- [x] Unit tests
 - [ ] UI polish
