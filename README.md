@@ -14,6 +14,8 @@ A SwiftUI iOS app that shows a stock watchlist with prices from the [Finnhub](ht
 - Green and red indicators for gains and losses
 - Detail screen with the symbol, current price, and previous close
 - Pull-to-refresh
+- Search by stock symbol (case-insensitive)
+- Favorite stocks: swipe a row to mark it with a star; favorites are saved on the device with `UserDefaults` and survive app restarts
 - Loading and error states: a failed request (for example a timeout) shows a message instead of an endless spinner
 
 ## Tech
@@ -55,7 +57,7 @@ StockApp/
 
 - [ ] Show company names (the quote endpoint returns prices only, so the symbol is shown twice for now)
 - [ ] Keep a stable order of stocks after a refresh
-- [ ] Search and filter
-- [ ] Save a local watchlist on the device
+- [x] Search by symbol
+- [x] Save favorites on the device
 - [ ] Unit tests
 - [ ] UI polish
