@@ -8,6 +8,22 @@
 import XCTest
 @testable import StockApp
 
+final class MockStockAPIService: StockAPIServiceProtocol {
+    var stocksToReturn: [Stock] = []
+    
+    func fetchStock(symbol: String) async throws -> Stock {
+        guard let stock = stocksToReturn.first(where: { $0.symbol ==
+            symbol }) else {
+            throw APIError.invalidURL
+        }
+        return stock
+    }
+    
+    func fetchStockList(symbols: [String]) async throws -> [Stock] {
+        return stocksToReturn
+    }
+}
+
 final class StockAppTests: XCTestCase {
 
     override func setUpWithError() throws {
@@ -33,6 +49,24 @@ final class StockAppTests: XCTestCase {
                           currentPrice: 50, previousClose: 0)
         
         XCTAssertEqual(stock.changePercent, 0)
+    }
+    
+    @MainActor
+    func testSearchFiltersBySymbolIgnoringCase() async {
+        let mock = MockStockAPIService()
+        mock.stocksToReturn = [
+            Stock(symbol: "AAPL", companyName: "Apple", currentPrice: 100,
+                 previousClose: 90),
+            Stock(symbol: "TSLA", companyName: "Tesla", currentPrice: 200,
+                  previousClose: 210),
+        ]
+        let viewModel = StockListViewModel(apiService: mock)
+        await viewModel.loadStocks(symbols: ["AAPL", "TSLA"])
+        
+        viewModel.searchText = "aa"
+        
+        XCTAssertEqual(viewModel.filteredStocks.count, 1)
+        XCTAssertEqual(viewModel.filteredStocks.first?.symbol, "AAPL")
     }
     
     func testChangePercentWhenPriceRises() {
