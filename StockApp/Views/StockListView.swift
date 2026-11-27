@@ -31,7 +31,7 @@ struct StockListView: View {
     private var content: some View {
         // Full-screen loading HANYA saat pertama kali buka (belum ada data sama sekali)
         if viewModel.isLoading && viewModel.stocks.isEmpty {
-            ProgressView("Memuat data...")
+            ProgressView("Loading stocks...")
         } else {
             // List selalu ada begitu sudah pernah punya data,
             // supaya .refreshable tidak "diputus paksa" saat refresh berikutnya

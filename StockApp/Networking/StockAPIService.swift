@@ -18,19 +18,19 @@ enum APIError: LocalizedError {
     var errorDescription: String? {
         switch self {
         case .missingAPIKey:
-            return "API key tidak ditemukan. Periksa Secrets.xcconfig dan Info.plist."
+            return "API key not found. check Secrets.xcconfig and Info.plist."
 
         case .invalidURL:
-            return "URL API tidak valid."
+            return "Invalid API URL"
 
         case .requestFailed(let error):
-            return "Koneksi gagal: \(error.localizedDescription)"
+            return "Connection failed: \(error.localizedDescription)"
 
         case .invalidResponse(let statusCode):
-            return "Server Finnhub merespons dengan status code \(statusCode)."
+            return "Finnhub server responded with status code \(statusCode)."
 
         case .decodingFailed(let error):
-            return "Format data dari Finnhub tidak sesuai: \(error.localizedDescription)"
+            return "Unexpected data format from Finnhub: \(error.localizedDescription)"
         }
     }
 }

@@ -63,7 +63,7 @@ final class StockListViewModel: ObservableObject {
                 return
             }
 
-            errorMessage = "Gagal memuat data saham: \(error.localizedDescription)"
+            errorMessage = "Failed to load stocks: \(error.localizedDescription)"
         }
 
         isLoading = false

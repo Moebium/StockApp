@@ -19,7 +19,7 @@ struct StockDetailView: View {
                     Text("$\(stock.currentPrice, specifier: "%.2f")")
                         .font(.system(size: 40, weight: .bold))
 
-                    Text("\(stock.changePercent >= 0 ? "+" : "")\(stock.changePercent, specifier: "%.2f")% dari penutupan sebelumnya")
+                    Text("\(stock.changePercent >= 0 ? "+" : "")\(stock.changePercent, specifier: "%.2f")% from previous close")
                         .font(.subheadline)
                         .foregroundStyle(stock.isGaining ? .green : .red)
                 }
@@ -27,20 +27,20 @@ struct StockDetailView: View {
                 .padding(.vertical, 8)
             }
 
-            Section("Rincian") {
+            Section("Detail") {
                 HStack {
-                    Text("Simbol")
+                    Text("Symbol")
                     Spacer()
                     Text(stock.symbol)
                         .fontWeight(.semibold)
                 }
                 HStack {
-                    Text("Harga sekarang")
+                    Text("Current price")
                     Spacer()
                     Text("$\(stock.currentPrice, specifier: "%.2f")")
                 }
                 HStack {
-                    Text("Penutupan sebelumnya")
+                    Text("Previous close")
                     Spacer()
                     Text("$\(stock.previousClose, specifier: "%.2f")")
                 }
