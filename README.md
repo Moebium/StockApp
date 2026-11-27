@@ -23,7 +23,7 @@ A SwiftUI iOS app that shows a stock watchlist with prices from the [Finnhub](ht
 - Swift and SwiftUI
 - MVVM
 - async/await
-- Finnhub REST API
+- Finnhub REST API (quote and company profile endpoints)
 - Codable models
 - XCTest unit tests, with a mock API service injected into the view model
 
@@ -58,8 +58,8 @@ StockAppTests/             Unit tests (changePercent, search) using a mock API s
 
 ## Known limitations and roadmap
 
-- [ ] Show company names (the quote endpoint returns prices only, so the symbol is shown twice for now)
-- [ ] Keep a stable order of stocks after a refresh
+- [x] Show company names (fetched from Finnhub's profile endpoint)
+- [x] Keep a stable order of stocks after a refresh
 - [x] Search by symbol
 - [x] Save favorites on the device
 - [x] Unit tests
