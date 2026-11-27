@@ -41,6 +41,10 @@ private struct FinnhubQuote: Codable {
     let pc: Double   // previous close
 }
 
+private struct FinnhubProfile: Codable {
+    let name: String
+}
+
 protocol StockAPIServiceProtocol {
     func fetchStock(symbol: String) async throws -> Stock
     func fetchStockList(symbols: [String]) async throws -> [Stock]
@@ -51,6 +55,27 @@ final class StockAPIService: StockAPIServiceProtocol {
     // API key dibaca dari Info.plist (diisi otomatis dari Secrets.xcconfig saat build)
     private var apiKey: String {
         Bundle.main.infoDictionary?["FINNHUB_API_KEY"] as? String ?? ""
+    }
+    
+    private func fetchCompanyName(symbol: String) async -> String {
+        var components = URLComponents(string:
+        "https://finnhub.io/api/v1/stock/profile2")
+        components?.queryItems = [
+            URLQueryItem(name: "symbol", value: symbol),
+            URLQueryItem(name: "token", value: apiKey)
+        ]
+        
+        guard let url = components?.url else { return symbol }
+        
+        do {
+            let (data, _) = try await URLSession.shared.data(from: url)
+            let profile = try JSONDecoder().decode(FinnhubProfile.self, from:
+            data)
+            
+            return profile.name
+        } catch {
+            return symbol
+        }
     }
 
     func fetchStock(symbol: String) async throws -> Stock {
@@ -90,9 +115,10 @@ final class StockAPIService: StockAPIServiceProtocol {
         // 4. Decode respons Finnhub, lalu petakan ke model Stock kita
         do {
             let quote = try JSONDecoder().decode(FinnhubQuote.self, from: data)
+            let name = await fetchCompanyName(symbol: symbol)
             return Stock(
                 symbol: symbol,
-                companyName: symbol,
+                companyName: name,
                 currentPrice: quote.c,
                 previousClose: quote.pc
             )
