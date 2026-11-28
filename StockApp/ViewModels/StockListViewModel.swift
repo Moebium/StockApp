@@ -82,8 +82,8 @@ final class StockListViewModel: ObservableObject {
         if searchText.isEmpty {
             return stocks
         }
-        return stocks.filter {
-            $0.symbol.localizedCaseInsensitiveContains(searchText)
+        return stocks.filter { stock in
+            stock.symbol.localizedCaseInsensitiveContains(searchText)
         }
     }
     
